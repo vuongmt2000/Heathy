@@ -15,9 +15,9 @@ export interface Color {
 
 export interface HomeModel {
     loading: boolean,
-    product: Product[],
-    updateProduct: Product[],
-    color: Color[]
+    products: Product[],
+    updateProducts: Product[],
+    colors: Color[]
 }
 
 export interface ApiResponse {

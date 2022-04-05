@@ -2,10 +2,10 @@ import { createSlice } from '@reduxjs/toolkit'
 import { HomeModel } from '../type'
 
 export const initialState: HomeModel = {
-    product: [],
-    updateProduct: [],
+    products: [],
+    updateProducts: [],
     loading: false,
-    color: [],
+    colors: [],
 }
 
 
@@ -18,7 +18,7 @@ const homeSlice = createSlice({
             state.loading = true
         },
         requestProductSuccess: (state, { payload }) => {
-            state.product = payload
+            state.products = payload
             state.loading = false
         },
         requestProductFailed: (state) => {
@@ -29,12 +29,16 @@ const homeSlice = createSlice({
             state.loading = true
         },
         requestColorSuccess: (state, { payload }) => {
-            state.color = payload
+            state.colors = payload
             state.loading = false
         },
         requestColorFailed: (state) => {
             state.loading = false
         },
+
+        requestUpdateProduct: (state, {payload}) =>{
+            state.products = payload
+        }
     }
 })
 

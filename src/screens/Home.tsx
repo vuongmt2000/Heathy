@@ -94,7 +94,7 @@ const Home = () => {
     )
   }
 
-  const onChangeColors = (value: any, index : any) =>{
+  const onChangeColors = (value: any, index: any) => {
     let cloneData = JSON.parse(JSON.stringify(data))
     cloneData[index].color = value;
     setData(cloneData)
@@ -113,18 +113,19 @@ const Home = () => {
             <TextInput value={item.sku} style={styles.inputSku} onChangeText={(text: String) => onChangeTextSku(text, index)} keyboardType="numeric" maxLength={20} />
             {errorSku.includes(index) ? <Text style={styles.textError}>!!!Require sku product</Text> : <View />}
             <RNPickerSelect
-            placeholder={{ label: "null", value: null }}
-            onValueChange={(value) => onChangeColors(value, index)}
-            value = { filterColor(item.color).id }
-            items={[
+              placeholder={{ label: "null", value: null }}
+              onValueChange={(value) => onChangeColors(value, index)}
+              useNativeAndroidPickerStyle={false}
+              value={filterColor(item.color).id}
+              items={[
                 { label: 'White', value: 1 },
                 { label: 'Black', value: 2 },
-                { label: 'Red', value:3 },
-                { label: 'Green', value:4 },
-                { label: 'Blue', value:5 },
-                { label: 'Yellow', value:6 },
-            ]}
-        />
+                { label: 'Red', value: 3 },
+                { label: 'Green', value: 4 },
+                { label: 'Blue', value: 5 },
+                { label: 'Yellow', value: 6 },
+              ]}
+            />
           </View>
           <Image source={require('../assets/image/icons8-edit-64.png')} style={styles.icon} />
         </View>
@@ -134,7 +135,7 @@ const Home = () => {
 
 
   const onSubmit = () => {
-    if (errorName.length || errorSku.length) return;
+    if (errorName.length || errorSku.length) return Alert.alert("!!!Require name and sku product");
     setModalVisible(true)
     let arrayChange = []
     for (let i = 0; i < data.length; i++) {
@@ -145,7 +146,7 @@ const Home = () => {
     setDataChange(arrayChange)
   }
 
-  const changeProducts = () =>{
+  const changeProducts = () => {
     setModalVisible(false)
     const update = data.concat(products.slice((data.length - 1), products.length - 1))
     dispatch(homeActions.requestUpdateProduct(update))
@@ -181,7 +182,7 @@ const Home = () => {
               keyExtractor={(item, index) => `Product-${index}`}
               ListFooterComponent={renderFooter()}
               onEndReached={() => handleLoadMore()}
-              onEndReachedThreshold={0}
+              onEndReachedThreshold={0.5}
               ListEmptyComponent={() => (
                 <View style={{ flex: 1, alignItems: 'center' }}>
                   <Text style={{ color: 'black', fontSize: 18 }} >no submit change</Text>
@@ -200,11 +201,7 @@ const Home = () => {
                   justifyContent: "center",
                   alignContent: 'center'
                 }}
-                onPress={() =>{
-                  setModalVisible(!modalVisible)
-                  setData([])
-                }}
-              >
+                onPress={() => { setModalVisible(!modalVisible) }}>
                 <Text style={styles.textStyle}>Cancel</Text>
               </Pressable>
               <Pressable
@@ -219,8 +216,7 @@ const Home = () => {
                   alignContent: 'center',
                   marginLeft: 32
                 }}
-                onPress={() => changeProducts()}
-              >
+                onPress={() => changeProducts()}>
                 <Text style={styles.textStyle} >Ok</Text>
               </Pressable>
             </View>
@@ -257,12 +253,12 @@ const styles = StyleSheet.create({
     marginLeft: 8
   },
   inputName: {
-    height: 36,
+    // height: 36,
     width: '100%',
     fontWeight: "bold"
   },
   inputSku: {
-    height: 36,
+    // height: 36,
     width: '100%',
   },
   textView: {
@@ -289,7 +285,7 @@ const styles = StyleSheet.create({
     // bottom: 0,
     alignSelf: 'center',
     width: '100%',
-    paddingHorizontal: 16
+    paddingHorizontal: 16,
   },
   txtbtn: {
     color: 'white',
